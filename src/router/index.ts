@@ -27,6 +27,16 @@ const router = createRouter({
       name: 'login',
       component: () => import("../views/LoginView.vue")
     },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import("../views/DashboardView.vue")
+    },
+    {
+      path: '/new_event',
+      name: 'new_event',
+      component: () => import("../views/EventCreateView.vue")
+    },
   ]
 })
 

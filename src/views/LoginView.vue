@@ -37,7 +37,7 @@ function change_connect_type() {
 
 function start_login() {
   console.log("Login");
-  router.push("/")
+  router.push("dashboard")
 }
 
 function start_register() {
