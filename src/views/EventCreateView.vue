@@ -1,7 +1,7 @@
 <template>
     <div>
         Event creation : 
-        <router-link to="/home">From template</router-link>
+        <router-link to="/event/create/template_select">From template</router-link>
         <div>Add your event manually</div>
     </div>
 </template>
