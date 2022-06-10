@@ -14,59 +14,20 @@
       </div>
 
       <div>-</div>
+      u
       <div v-if="current_focus == 1">
-        <input
-          type="text"
-          v-model="event_name"
-          name=""
-          id=""
-          placeholder="Nom evenement"
-        />
+        <input type="text" v-model="event_name" name="" id="" placeholder="Nom evenement" />
       </div>
       <div v-if="current_focus == 2">
-        <input
-          v-model="event_start_date"
-          type="datetime-local"
-          name="start_date"
-          id=""
-        />
-        <input
-          v-model="event_end_date"
-          type="datetime-local"
-          name="end_date"
-          id=""
-        />
+        <input v-model="event_start_date" type="datetime-local" name="start_date" id="" />
+        <input v-model="event_end_date" type="datetime-local" name="end_date" id="" />
       </div>
       <div v-if="current_focus == 3">
-        <input
-          v-model="event_city"
-          type="text"
-          name=""
-          id=""
-          placeholder="ville"
-        />
-        <input
-          v-model="event_postal_code"
-          type="text"
-          name=""
-          id=""
-          placeholder="code postal"
-        />
-        <input
-          v-model="event_street"
-          type="text"
-          name=""
-          id=""
-          placeholder="rue"
-        />
+        <input v-model="event_city" type="text" name="" id="" placeholder="ville" />
+        <input v-model="event_postal_code" type="text" name="" id="" placeholder="code postal" />
+        <input v-model="event_street" type="text" name="" id="" placeholder="rue" />
 
-        <input
-          v-model="event_description"
-          type="text"
-          name=""
-          id=""
-          placeholder="informations supplémentaires"
-        />
+        <input v-model="event_description" type="text" name="" id="" placeholder="informations supplémentaires" />
       </div>
       <div v-if="current_focus == 4">Texte presentation</div>
     </div>
