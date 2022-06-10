@@ -1,10 +1,10 @@
 <template>
     <div>
-        
+        Here is your event, babe.
     </div>
 </template>
 
-<script></script>
+<script setup></script>
 
 <style>
 .main_container {

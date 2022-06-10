@@ -52,6 +52,11 @@ const router = createRouter({
       name: 'template_confirm',
       component: () => import("../views/event/EventCreateFinishView.vue")
     },
+    {
+      path: '/event/manage/:id',
+      name: 'event_manage',
+      component: () => import("../views/event/EventManageView.vue")
+    }
   ]
 })
 

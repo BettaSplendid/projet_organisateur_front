@@ -13,11 +13,14 @@
       <div>Postal code : {{ temp_event["postal_code"] }}</div>
       <div>Street : {{ temp_event["street"] }}</div>
       <div>Description : {{ temp_event["description"] }}</div>
-    </div> 
+      <input type="number" v-model="idid">
+      {{ idid }}
+    </div>
     <br>
-    You can  <router-link to="">add people</router-link> to the event, or <router-link to="">look for services.</router-link> 
+    You can
+    <router-link :to="'/event/manage/' + idid"> add people </router-link> to the event, or <router-link to="">look for services.</router-link>
     <br>
-    If you are happy with this, you can confirm it & 
+    If you are happy with this, you can
     <router-link to="/dashboard">Return to your dashboard</router-link>
   </div>
 </template>
@@ -29,6 +32,8 @@ import { useCreateEventStore } from "../../stores/create_event";
 const CreateEventStore = useCreateEventStore();
 
 const temp_event = ref({});
+
+const idid = ref(0);
 
 onMounted(() => {
   temp_event.value = CreateEventStore.event;
