@@ -24,25 +24,33 @@
 
       <div class="input_container">
         <div class="mini_element_container" v-if="current_focus == 1">
-          <input type="text" v-model="event_name" name="" id="" placeholder="Nom evenement" />
+          <input type="text" v-model="event_name" placeholder="Nom evenement" autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 2">
-          <input class="mini_element" v-model="event_start_date" type="datetime-local" name="start_date" id="" />
-          <input class="mini_element" v-model="event_end_date" type="datetime-local" name="end_date" id="" />
+          <input class="mini_element" v-model="event_start_date" type="datetime-local" name="start_date" id=""
+            autocomplete="on" />
+          <input class="mini_element" v-model="event_end_date" type="datetime-local" name="end_date" id=""
+            autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 3">
-          <input class="mini_element" v-model="event_city" type="text" name="" id="" placeholder="ville" />
-          <input class="mini_element" v-model="event_postal_code" type="text" name="" id="" placeholder="code postal" />
-          <input class="mini_element" v-model="event_street" type="text" name="" id="" placeholder="rue" />
+          <input class="mini_element" v-model="event_city" type="text" placeholder="city" autocomplete="on" />
+          <input class="mini_element" v-model="event_postal_code" type="text" placeholder="postal code"
+            autocomplete="on" />
+          <input class="mini_element" v-model="event_street" type="text" placeholder="rue" autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 4">
           Texte presentation
-          <input type="text" name="" id="" />
+          <input type="text" />
         </div>
 
         <div class="mini_element_container" v-if="current_focus == 5">
           Here is a resume. blablaba
         </div>
+        <router-link @click="confirm_event()" to="/event/create/confirm">Finish event</router-link>
+        <br>
+        <router-link to="/event/create/confirm">Finish event - no confirm</router-link>
+        <br>
+        <button @click="confirm_event()">Confirm event - no page change</button>
       </div>
     </div>
     <br />
@@ -52,9 +60,9 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useCreateEventStore } from "../stores/create_event";
+const CreateEventStore = useCreateEventStore();
 
-const router = useRouter();
 
 const current_focus = ref(1);
 const event_name = ref("");
@@ -71,6 +79,15 @@ function cycle_button() {
     current_focus.value++;
   }
   progress_indicator();
+}
+
+function confirm_event() {
+  CreateEventStore.event["name"] = event_name.value;
+  CreateEventStore.event["start_date"] = event_start_date.value;
+  CreateEventStore.event["end_date"] = event_end_date.value;
+  CreateEventStore.event["city"] = event_city.value;
+  CreateEventStore.event["postal_code"] = event_postal_code.value;
+  CreateEventStore.event["street"] = event_street.value;
 }
 
 function progress_indicator() {
@@ -101,7 +118,6 @@ function progress_indicator() {
         .getElementById("progress_indicator_4")
         .classList.add("unfinished_button_color");
       break;
-      break
     case 2:
       document
         .getElementById("progress_indicator_1")
