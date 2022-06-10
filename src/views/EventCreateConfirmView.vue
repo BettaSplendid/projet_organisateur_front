@@ -1,18 +1,24 @@
 <template>
+  <div>
+    miaou
+    <br>
+    <br>
+    <div>Here is a resume of your event</div>
+    <div>It has the following stuff :</div>
     <div>
-        Hello
-        <div>Here is a confirmation of your temp_event</div>
-        <div>It has the following stuff :</div>
-        <div>Title : {{ temp_event['name'] }}</div>
-        <div>Start date : {{ temp_event['start_date'] }}</div>
-        <div>End date : {{ temp_event['end_date'] }}</div>
-        <div>City : {{ temp_event['city'] }}</div>
-        <div>Postal code : {{ temp_event['postal_code'] }}</div>
-        <div>Street : {{ temp_event['street'] }}</div>
-        <div>Description : {{ temp_event['description'] }}</div>
-        
-
-    </div>
+      <div>Title : {{ temp_event["name"] }}</div>
+      <div>Start date : {{ temp_event["start_date"] }}</div>
+      <div>End date : {{ temp_event["end_date"] }}</div>
+      <div>City : {{ temp_event["city"] }}</div>
+      <div>Postal code : {{ temp_event["postal_code"] }}</div>
+      <div>Street : {{ temp_event["street"] }}</div>
+      <div>Description : {{ temp_event["description"] }}</div>
+    </div> 
+    <br>
+    If you are happy with this, you can confirm it.
+    <br>
+    <button>Confirm</button>
+  </div>
 </template>
 
 <script setup>
@@ -24,7 +30,6 @@ const CreateEventStore = useCreateEventStore();
 const temp_event = ref({});
 
 onMounted(() => {
-    temp_event.value = CreateEventStore.event;
+  temp_event.value = CreateEventStore.event;
 });
-
 </script>
