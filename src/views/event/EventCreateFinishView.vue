@@ -18,7 +18,7 @@
     </div>
     <br>
     You can
-    <router-link :to="'/event/manage/' + idid"> add people </router-link> to the event, or <router-link to="">look for services.</router-link>
+    <router-link :to="'/event/manage/' + idid + '/people_add'"> add people </router-link> to the event, or <router-link to="">look for services.</router-link>
     <br>
     If you are happy with this, you can
     <router-link to="/dashboard">Return to your dashboard</router-link>

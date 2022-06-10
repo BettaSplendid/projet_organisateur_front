@@ -56,6 +56,11 @@ const router = createRouter({
       path: '/event/manage/:id',
       name: 'event_manage',
       component: () => import("../views/event/EventManageView.vue")
+    },
+    {
+      path: '/event/manage/:id/people_add',
+      name: 'event_manage_people',
+      component: () => import("../views/event/EventManagePeopleView.vue")
     }
   ]
 })
