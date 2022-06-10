@@ -43,7 +43,7 @@ const router = createRouter({
       component: () => import("../views/EventCreateTemplateView.vue")
     },
     {
-      path: '/event/create/process',
+      path: '/event/create/letsgo',
       name: 'template_process',
       component: () => import("../views/EventCreateProcessView.vue")
     },
