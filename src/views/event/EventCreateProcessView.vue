@@ -24,19 +24,19 @@
 
       <div class="input_container">
         <div class="mini_element_container" v-if="current_focus == 1">
-          <input type="text" v-model="event_name" placeholder="Nom evenement" autocomplete="on" />
+          <input type="text" v-model="event_name" @keyup.enter="cycle_button" placeholder="Nom evenement" autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 2">
-          <input class="mini_element" v-model="event_start_date" type="datetime-local" name="start_date" id=""
+          <input class="mini_element" v-model="event_start_date" @keyup.enter="cycle_button" type="datetime-local" name="start_date" id=""
             autocomplete="on" />
-          <input class="mini_element" v-model="event_end_date" type="datetime-local" name="end_date" id=""
+          <input class="mini_element" v-model="event_end_date" @keyup.enter="cycle_button" type="datetime-local" name="end_date" id=""
             autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 3">
-          <input class="mini_element" v-model="event_city" type="text" placeholder="city" autocomplete="on" />
-          <input class="mini_element" v-model="event_postal_code" type="text" placeholder="postal code"
+          <input class="mini_element" v-model="event_city" @keyup.enter="cycle_button" type="text" placeholder="city" autocomplete="on" />
+          <input class="mini_element" v-model="event_postal_code" @keyup.enter="cycle_button" type="text" placeholder="postal code"
             autocomplete="on" />
-          <input class="mini_element" v-model="event_street" type="text" placeholder="rue" autocomplete="on" />
+          <input class="mini_element" v-model="event_street" @keyup.enter="cycle_button" type="text" placeholder="rue" autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 4">
           Texte presentation
@@ -60,7 +60,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useCreateEventStore } from "../stores/create_event";
+import { useCreateEventStore } from "../../stores/create_event";
 const CreateEventStore = useCreateEventStore();
 
 
