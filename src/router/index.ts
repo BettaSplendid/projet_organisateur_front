@@ -35,22 +35,22 @@ const router = createRouter({
     {
       path: '/event/create',
       name: 'new_event',
-      component: () => import("../views/EventCreateView.vue")
+      component: () => import("../views/event/EventCreateView.vue")
     },
     {
       path: '/event/create/template_select',
       name: 'template_select',
-      component: () => import("../views/EventCreateTemplateView.vue")
+      component: () => import("../views/event/EventCreateTemplateView.vue")
     },
     {
       path: '/event/create/letsgo',
       name: 'template_process',
-      component: () => import("../views/EventCreateProcessView.vue")
+      component: () => import("../views/event/EventCreateProcessView.vue")
     },
     {
       path: '/event/create/confirm',
       name: 'template_confirm',
-      component: () => import("../views/EventCreateConfirmView.vue")
+      component: () => import("../views/event/EventCreateConfirmView.vue")
     },
   ]
 })

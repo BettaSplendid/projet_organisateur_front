@@ -15,16 +15,17 @@
       <div>Description : {{ temp_event["description"] }}</div>
     </div> 
     <br>
-    If you are happy with this, you can confirm it.
+    You can  <router-link to="">add people</router-link> to the event, or <router-link to="">look for services.</router-link> 
     <br>
-    <button>Confirm</button>
+    If you are happy with this, you can confirm it & 
+    <router-link to="/dashboard">Return to your dashboard</router-link>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import { ref } from "vue";
-import { useCreateEventStore } from "../stores/create_event";
+import { useCreateEventStore } from "../../stores/create_event";
 const CreateEventStore = useCreateEventStore();
 
 const temp_event = ref({});
