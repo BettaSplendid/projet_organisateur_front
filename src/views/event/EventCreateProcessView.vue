@@ -24,19 +24,22 @@
 
       <div class="input_container">
         <div class="mini_element_container" v-if="current_focus == 1">
-          <input type="text" v-model="event_name" @keyup.enter="cycle_button" placeholder="Nom evenement" autocomplete="on" />
+          <input type="text" v-model="event_name" @keyup.enter="cycle_button" placeholder="Nom evenement"
+            autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 2">
-          <input class="mini_element" v-model="event_start_date" @keyup.enter="cycle_button" type="datetime-local" name="start_date" id=""
-            autocomplete="on" />
-          <input class="mini_element" v-model="event_end_date" @keyup.enter="cycle_button" type="datetime-local" name="end_date" id=""
-            autocomplete="on" />
+          <input class="mini_element" v-model="event_start_date" @keyup.enter="cycle_button" type="datetime-local"
+            name="start_date" id="" autocomplete="on" />
+          <input class="mini_element" v-model="event_end_date" @keyup.enter="cycle_button" type="datetime-local"
+            name="end_date" id="" autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 3">
-          <input class="mini_element" v-model="event_city" @keyup.enter="cycle_button" type="text" placeholder="city" autocomplete="on" />
-          <input class="mini_element" v-model="event_postal_code" @keyup.enter="cycle_button" type="text" placeholder="postal code"
+          <input class="mini_element" v-model="event_city" @keyup.enter="cycle_button" type="text" placeholder="city"
             autocomplete="on" />
-          <input class="mini_element" v-model="event_street" @keyup.enter="cycle_button" type="text" placeholder="rue" autocomplete="on" />
+          <input class="mini_element" v-model="event_postal_code" @keyup.enter="cycle_button" type="text"
+            placeholder="postal code" autocomplete="on" />
+          <input class="mini_element" v-model="event_street" @keyup.enter="cycle_button" type="text" placeholder="rue"
+            autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 4">
           Texte presentation
@@ -46,15 +49,20 @@
         <div class="mini_element_container" v-if="current_focus == 5">
           Here is a resume. blablaba
         </div>
-        <router-link @click="confirm_event()" to="/event/create/confirm">Finish event</router-link>
-        <br>
-        <router-link to="/event/create/confirm">Finish event - no confirm</router-link>
-        <br>
-        <button @click="confirm_event()">Confirm event - no page change</button>
+
+        <div v-if="current_focus > 3">
+          <router-link @click="confirm_event()" to="/event/create/confirm">Finish event</router-link>
+          <br />
+          <router-link to="/event/create/confirm">Finish event - no confirm</router-link>
+          <br />
+          <button @click="confirm_event()">
+            Confirm event - no page change
+          </button>
+        </div>
+        <button @click="cycle_button">Cycle</button>
       </div>
     </div>
     <br />
-    <button @click="cycle_button">Cycle</button>
   </div>
 </template>
 
@@ -62,7 +70,6 @@
 import { ref } from "vue";
 import { useCreateEventStore } from "../../stores/create_event";
 const CreateEventStore = useCreateEventStore();
-
 
 const current_focus = ref(1);
 const event_name = ref("");
@@ -198,6 +205,8 @@ function progress_indicator() {
 }
 
 .background_debug {
-  background-color: aquamarine;
+  padding: 2vh;
+  border-radius: 5vh;
+  background-color: rgb(255, 77, 77);
 }
 </style>
