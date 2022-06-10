@@ -11,14 +11,15 @@
         <div>Event city : {{ event_city }}</div>
         <div>Event postal code : {{ event_postal_code }}</div>
         <div>Event street : {{ event_street }}</div>
+        <div>Event description : {{ event_description }}</div>
       </div>
 
       <div>-</div>
       <div>
-        <div id="progress_indicator_1" class="progress_button unfinished_button_color"></div>
-        <div id="progress_indicator_2" class="progress_button unfinished_button_color"></div>
-        <div id="progress_indicator_3" class="progress_button unfinished_button_color"></div>
-        <div id="progress_indicator_4" class="progress_button unfinished_button_color"></div>
+        <div id="progress_indicator_1" @click="switch_focus(1)" class="progress_button unfinished_button_color"></div>
+        <div id="progress_indicator_2" @click="switch_focus(2)" class="progress_button unfinished_button_color"></div>
+        <div id="progress_indicator_3" @click="switch_focus(3)" class="progress_button unfinished_button_color"></div>
+        <div id="progress_indicator_4" @click="switch_focus(4)" class="progress_button unfinished_button_color"></div>
       </div>
       <div>-</div>
 
@@ -43,13 +44,13 @@
         </div>
         <div class="mini_element_container" v-if="current_focus == 4">
           Texte presentation
-          <input type="text" />
+          <input class="mini_element" v-model="event_description" @keyup.enter="cycle_button" type="text"
+            placeholder="Description de l'événement">
         </div>
-
         <div class="mini_element_container" v-if="current_focus == 5">
           Here is a resume. blablaba
         </div>
-
+        <br>
         <div v-if="current_focus > 3">
           <router-link @click="confirm_event()" to="/event/create/confirm">Finish event</router-link>
           <br />
@@ -78,13 +79,19 @@ const event_end_date = ref();
 const event_city = ref("");
 const event_postal_code = ref("");
 const event_street = ref("");
+const event_description = ref("");
 
 function cycle_button() {
   if (current_focus.value >= 5) {
-    current_focus.value = 1;
+    switch_focus(1);
   } else {
     current_focus.value++;
   }
+  progress_indicator();
+}
+
+function switch_focus(number) {
+  current_focus.value = number;
   progress_indicator();
 }
 
@@ -95,7 +102,10 @@ function confirm_event() {
   CreateEventStore.event["city"] = event_city.value;
   CreateEventStore.event["postal_code"] = event_postal_code.value;
   CreateEventStore.event["street"] = event_street.value;
+  CreateEventStore.event["description"] = event_description.value;
 }
+
+
 
 function progress_indicator() {
   switch (current_focus.value) {
