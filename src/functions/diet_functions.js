@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 // This file contains functions which are too long to handle on the main pages.
 
