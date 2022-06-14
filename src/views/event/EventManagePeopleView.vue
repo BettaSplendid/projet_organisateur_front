@@ -1,10 +1,17 @@
 <template>
     <div>
         Manage the invited people here
+        <div>
+          Diet restrictions
+        </div>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+var diet_func = require('../../functions/diet_functions.js');
+encode_diet_restrictions()
+
+</script>
 
 <style>
 .main_container {
