@@ -2,8 +2,10 @@
 
 // This file contains functions which are too long to handle on the main pages.
 
-export function encode_diet_restrictions() {
+export function encode_diet_restrictions(data) {
     console.log("encode_diet_restrictions");
+    console.log(data);
+    console.log(data.value);
 }
 
 

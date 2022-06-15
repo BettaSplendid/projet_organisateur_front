@@ -99,17 +99,48 @@
             <label for="Mustard">Mustard </label>
             <input type="checkbox" id="Mustard">
           </div>
-{{ }}
         </div>
 
       </div>
-      <button @click="mykey.encode_diet_restrictions">Submit choices</button>
+      {{ allergies }}
+      <button @click="mykey.encode_diet_restrictions(allergies)">Submit choices</button>
     </div>
   </div>
 </template>
 
 <script setup>
 import * as mykey from '../../functions/diet_functions'
+import { ref } from "vue";
+
+
+
+
+const allergies = ref({
+  milk: false,
+  meat: false,
+  gluten: false,
+  eggs: false,
+  fish: false,
+  nuts: false,
+  shellfish: false,
+  soy: false,
+  wheat: false,
+  tree_nuts: false,
+  peanuts: false,
+  sesame: false,
+  alcohol: false,
+  coconut: false,
+  sugar: false,
+  sulfites: false,
+  fruit: false,
+  garlic: false,
+  celery: false,
+  mustard: false,
+  poultry: false,
+  red_meat: false,
+});
+
+console.log(allergies.value);
 
 
 // import { encode_diet_restrictions } from '../../functions/diet_functions';
