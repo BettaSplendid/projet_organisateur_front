@@ -99,7 +99,7 @@
             <label for="Mustard">Mustard </label>
             <input type="checkbox" id="Mustard">
           </div>
-
+{{ }}
         </div>
 
       </div>
@@ -110,6 +110,8 @@
 
 <script setup>
 import * as mykey from '../../functions/diet_functions'
+
+
 // import { encode_diet_restrictions } from '../../functions/diet_functions';
 // milk meat gluten eggs fish nuts shellfish soy wheat tree nuts peanuts sesame alcohol coconut sugar sulfites fruit garlic celery mustard peanut poultry red meat other
 // var diet_restrictions = {

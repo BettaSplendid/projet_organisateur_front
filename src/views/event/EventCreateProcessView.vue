@@ -25,7 +25,7 @@
 
       <div class="input_container">
         <div class="mini_element_container" v-if="current_focus == 1">
-          <input type="text" v-model="event_name" @keyup.enter="cycle_button" placeholder="Nom evenement"
+          <input type="text" v-model=" " @keyup.enter="cycle_button" placeholder="Nom evenement"
             autocomplete="on" />
         </div>
         <div class="mini_element_container" v-if="current_focus == 2">
