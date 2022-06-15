@@ -4,56 +4,106 @@
     <div class="main_container">
       Chosoe your diet restrictions :
       <div class="diet_container">
-        <label for="milk">Milk</label>
-        <input type="checkbox" id="milk">
-        <label for="meat">Meat</label>
-        <input type="checkbox" id="meat">
-        <label for="gluten">Gluten</label>
-        <input type="checkbox" id="gluten">
-        <label for="Eggs">Eggs</label>
-        <input type="checkbox" id="Eggs">
-        <label for="Fish">Fish</label>
-        <input type="checkbox" id="Fish">
-        <label for="Nuts">Nuts</label>
-        <input type="checkbox" id="Nuts">
-        <label for="Shellfish">Shellfish</label>
-        <input type="checkbox" id="Shellfish">
-        <label for="Soy">Soy</label>
-        <input type="checkbox" id="Soy">
-        <label for="Wheat">Wheat</label>
-        <input type="checkbox" id="Wheat">
-        <label for="Tree_nuts">Tree_nuts</label>
-        <input type="checkbox" id="Tree_nuts">
-        <label for="Peanuts">Peanuts</label>
-        <input type="checkbox" id="Peanuts">
-        <label for="Sesame">Sesame</label>
-        <input type="checkbox" id="Sesame">
-        <label for="Alcohol">Alcohol</label>
-        <input type="checkbox" id="Alcohol">
-        <label for="Coconut">Coconut</label>
-        <input type="checkbox" id="Coconut">
-        <label for="Sugar">Sugar</label>
-        <input type="checkbox" id="Sugar">
-        <label for="Sulfites">Sulfites</label>
-        <input type="checkbox" id="Sulfites">
-        <label for="fruit">fruit</label>
-        <input type="checkbox" id="fruit">
-        <label for="Garlic">Garlic</label>
-        <input type="checkbox" id="Garlic">
-        <label for="Celery">Celery</label>
-        <input type="checkbox" id="Celery">
-        <label for="Mustard">Mustard</label>
-        <input type="checkbox" id="Mustard">
-        <label for="Peanut">Peanut</label>
-        <input type="checkbox" id="Peanut">
-        <label for="Poultry">Poultry</label>
-        <input type="checkbox" id="Poultry">
-        <label for="Red_meat">Red_meat</label>
-        <input type="checkbox" id="Red_meat">
-        <label for="other">Other</label>
-        <textarea name="other" id="other" cols="30" rows="10"></textarea>
+        <div class="column_1">
+          <div class="diet_checkbox">
+            <label for="milk">Milk </label>
+            <input type="checkbox" id="milk">
+          </div>
+          <div class="diet_checkbox">
+            <label for="meat">Meat </label>
+            <input type="checkbox" id="meat">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Alcohol">Alcohol </label>
+            <input type="checkbox" id="Alcohol">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Eggs">Eggs </label>
+            <input type="checkbox" id="Eggs">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Fish">Fish </label>
+            <input type="checkbox" id="Fish">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Nuts">Nuts </label>
+            <input type="checkbox" id="Nuts">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Shellfish">Shellfish </label>
+            <input type="checkbox" id="Shellfish">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Soy">Soy </label>
+            <input type="checkbox" id="Soy">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Wheat">Wheat </label>
+            <input type="checkbox" id="Wheat">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Peanut">Peanut </label>
+            <input type="checkbox" id="Peanut">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Poultry">Poultry </label>
+            <input type="checkbox" id="Poultry">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Red_meat">Red_meat </label>
+            <input type="checkbox" id="Red_meat">
+          </div>
+        </div>
+        <div>
+          <div class="diet_checkbox">
+            <label for="Tree_nuts">Tree nuts </label>
+            <input type="checkbox" id="Tree_nuts">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Peanuts">Peanuts </label>
+            <input type="checkbox" id="Peanuts">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Sesame">Sesame </label>
+            <input type="checkbox" id="Sesame">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Alcohol">Alcohol </label>
+            <input type="checkbox" id="Alcohol">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Coconut">Coconut </label>
+            <input type="checkbox" id="Coconut">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Sugar">Sugar </label>
+            <input type="checkbox" id="Sugar">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Sulfites">Sulfites </label>
+            <input type="checkbox" id="Sulfites">
+          </div>
+          <div class="diet_checkbox">
+            <label for="fruit">Fruit </label>
+            <input type="checkbox" id="fruit">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Garlic">Garlic </label>
+            <input type="checkbox" id="Garlic">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Celery">Celery </label>
+            <input type="checkbox" id="Celery">
+          </div>
+          <div class="diet_checkbox">
+            <label for="Mustard">Mustard </label>
+            <input type="checkbox" id="Mustard">
+          </div>
+
+        </div>
+
       </div>
-      <button @click="encode_diet_restrictions">Submit choices</button>
+      <button @click="mykey.encode_diet_restrictions">Submit choices</button>
     </div>
   </div>
 </template>
@@ -89,6 +139,10 @@ import * as mykey from '../../functions/diet_functions'
 //     24: 'Other'
 // }
 
+// <label for="other">Other </label>
+        // <textarea name="other" id="other" cols="30" rows="10"></textarea>
+// 
+
 </script>
 
 <style>
@@ -102,6 +156,14 @@ import * as mykey from '../../functions/diet_functions'
 }
 
 .diet_container {
-  
+  display: flex;
+  flex-direction: row;
+}
+
+.diet_checkbox {
+  background-color: rgb(245, 73, 245);
+  padding: 1vh;
+  margin-bottom: 1vh;
+  border-radius: 2vh;
 }
 </style>
