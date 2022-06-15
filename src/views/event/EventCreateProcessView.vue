@@ -26,7 +26,7 @@
       <div class="input_container">
         <div class="mini_element_container" v-if="current_focus == 1">
           <input type="text" v-model="event_name" @keyup.enter="cycle_button" placeholder="Nom evenement"
-            autocomplete="on" />
+            autocomplete="on" required />
         </div>
         <div class="mini_element_container" v-if="current_focus == 2">
           <input class="mini_element" v-model="event_start_date" @keyup.enter="cycle_button" type="datetime-local"
@@ -68,9 +68,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useCreateEventStore } from "../../stores/create_event";
+import * as http_func from '../../functions/http_functions';
 const CreateEventStore = useCreateEventStore();
+
+
 
 const current_focus = ref(1);
 const event_name = ref("");
@@ -80,6 +83,29 @@ const event_city = ref("");
 const event_postal_code = ref("");
 const event_street = ref("");
 const event_description = ref("");
+
+
+onMounted(() => {
+  console.log('Mounted EventCreateProcessView');
+  check_values()
+})
+
+
+function check_values() {
+  console.log('Checking values');
+  if (CreateEventStore.event_name != "") {
+    console.log('Store has something. Setting variables to store values');
+    console.log(CreateEventStore.event.name);
+    event_name.value = CreateEventStore.event.name;
+    event_start_date.value = CreateEventStore.event.start_date;
+    event_end_date.value = CreateEventStore.event.end_date;
+    event_city.value = CreateEventStore.event.city;
+    event_postal_code.value = CreateEventStore.event.postal_code;
+    event_street.value = CreateEventStore.event.street;
+    event_description.value = CreateEventStore.event.description;
+  }
+
+}
 
 function cycle_button() {
   if (current_focus.value >= 5) {
@@ -96,6 +122,7 @@ function switch_focus(number) {
 }
 
 function confirm_event() {
+  console.log('Event confirmed, submitting to server & store');
   CreateEventStore.event["name"] = event_name.value;
   CreateEventStore.event["start_date"] = event_start_date.value;
   CreateEventStore.event["end_date"] = event_end_date.value;
@@ -103,6 +130,7 @@ function confirm_event() {
   CreateEventStore.event["postal_code"] = event_postal_code.value;
   CreateEventStore.event["street"] = event_street.value;
   CreateEventStore.event["description"] = event_description.value;
+  http_func.send_event_server(CreateEventStore.event);
 }
 
 

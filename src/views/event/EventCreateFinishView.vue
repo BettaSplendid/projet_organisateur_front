@@ -13,12 +13,10 @@
       <div>Postal code : {{ temp_event["postal_code"] }}</div>
       <div>Street : {{ temp_event["street"] }}</div>
       <div>Description : {{ temp_event["description"] }}</div>
-      <input type="number" v-model="idid">
-      {{ idid }}
     </div>
     <br>
     You can
-    <router-link :to="'/event/manage/' + idid + '/people_add'"> add people </router-link> to the event, or <router-link to="">look for services.</router-link>
+    <router-link :to="'/event/manage/' + event_id + '/people_add'"> add people </router-link> to the event, or <router-link to="">look for services.</router-link>
     <br>
     If you are happy with this, you can
     <router-link to="/dashboard">Return to your dashboard</router-link>

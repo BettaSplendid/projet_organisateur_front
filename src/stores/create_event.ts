@@ -9,7 +9,8 @@ export const useCreateEventStore = defineStore({
             end_date: '',
             city: '',
             postal_code: '',
-            street: ''
+            street: '',
+            description: '',
         }
     }),
     persist: true,
