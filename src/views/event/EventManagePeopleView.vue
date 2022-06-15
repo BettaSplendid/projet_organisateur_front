@@ -104,6 +104,9 @@
       </div>
       {{ allergies }}
       <button @click="mykey.encode_diet_restrictions(allergies)">Submit choices</button>
+      <button @click="mykey.decode_diet_restrictions('0000010000000000000000')">Submit choices</button>
+
+
     </div>
   </div>
 </template>
@@ -113,15 +116,13 @@ import * as mykey from '../../functions/diet_functions'
 import { ref } from "vue";
 
 
-
-
 const allergies = ref({
   milk: false,
   meat: false,
   gluten: false,
   eggs: false,
   fish: false,
-  nuts: false,
+  nuts: true,
   shellfish: false,
   soy: false,
   wheat: false,
@@ -141,6 +142,7 @@ const allergies = ref({
 });
 
 console.log(allergies.value);
+
 
 
 // import { encode_diet_restrictions } from '../../functions/diet_functions';
