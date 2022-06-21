@@ -31,7 +31,7 @@ const CreateEventStore = useCreateEventStore();
 
 const temp_event = ref({});
 
-const idid = ref(0);
+// const idid = ref(0);
 
 onMounted(() => {
   temp_event.value = CreateEventStore.event;

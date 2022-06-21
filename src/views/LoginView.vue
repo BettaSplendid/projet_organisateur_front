@@ -56,8 +56,14 @@ function change_connect_type() {
 }
 
 async function start_login() {
-  await http_func.login_user(user_data.value);
+  var response = await http_func.login_user(user_data.value);
   // If the return is code 200, we redirect to the home page
+  if (response.response_code === 200) {
+    router.push("/dashboard");
+  } else {
+    // Else we display an error message
+    alert(response.response_message);
+  }
   // router.push("dashboard")
 }
 

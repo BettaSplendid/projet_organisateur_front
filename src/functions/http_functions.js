@@ -1,6 +1,15 @@
 
 
+import { useUserStore } from "../../stores/user";
+const user_store = useUserStore()
+
+import { useEventStore } from "../../stores/events";
+const event_store = useEventStore()
+
 // Here are the HTTP requests
+
+
+
 
 // This function sends an event to be registered.
 export async function send_event_server(received_event) {
@@ -26,16 +35,37 @@ export async function send_event_server(received_event) {
 }
 
 // This function sends a request to the server to get the events.
-export async function get_events_server() {
-    console.log("get_events_server");
-    console.log('sending the request to the server');
-    // let response = fetch("http://localhost:3002" + '/event/get', {
-    //     method: 'POST',
+export async function get_events_server(token, refresh_token) {
+    try {
+        console.log("requesting events for user from servers");
+        if (token == null) {
+            console.log("user_data.token is null");
+            return;
+        }
+        // We only verify that we are sending a token. The validation of those credentials is in the back end. 
+        // We can't do it here.
 
-    // })
-    //     .then()
-    //     .catch();
-    // console.log(response);
+        var data = {
+            token: token,
+            refresh_token: refresh_token
+        };
+
+
+        console.log('sending the request to the server');
+        let response = fetch("http://localhost:3002" + '/event/get', {
+            method: 'POST',
+            body: data
+        })
+            .then()
+            .catch();
+        console.log(response);
+        response.forEach(element => {
+            event_store.push(element);
+        });
+
+    } catch (error) {
+        return error;
+    }
 }
 
 // This function attempts to register the user
@@ -81,6 +111,8 @@ export async function register_user(received_user) {
         })
             .then()
             .catch();
+        // This has to be cleaned up, but i can't test my code right now
+        // If it is a success, we need to inform the parent function, so we can put a lil display thing.
         console.log(response);
     } catch (error) {
         return error;
@@ -88,45 +120,59 @@ export async function register_user(received_user) {
 }
 
 export async function login_user(received_user) {
-    console.log("login_user");
-    console.log({ received_user });
-    console.log("Verifying user data");
 
-    // This is to allow signing up with mail or username
-    var mail_or_username = null;
 
-    if (!received_user.identifier || !received_user.password) {
-        console.log("All the fields have to be filled");
-        return false;
-    }
-    if (received_user.identifier.includes("@")) {
-        mail_or_username = "email";
-    } else {
-        mail_or_username = "username";
-    }
+    try {
+        console.log("login_user");
+        console.log({ received_user });
+        console.log("Verifying user data");
 
-    var data_to_send = {}
+        // This is to allow signing up with mail or username
+        var mail_or_username = null;
 
-    if (mail_or_username == "email") {
-        data_to_send = {
-            email: received_user.identifier,
-            password: received_user.password
+        if (!received_user.identifier || !received_user.password) {
+            console.log("All the fields have to be filled");
+            return false;
         }
-    } else {
-        data_to_send = {
-            username: received_user.identifier,
-            password: received_user.password
+        if (received_user.identifier.includes("@")) {
+            mail_or_username = "email";
+        } else {
+            mail_or_username = "username";
         }
+
+        var data_to_send = {}
+
+        if (mail_or_username == "email") {
+            data_to_send = {
+                email: received_user.identifier,
+                password: received_user.password
+            }
+        } else {
+            data_to_send = {
+                username: received_user.identifier,
+                password: received_user.password
+            }
+        }
+
+        setTimeout(() => {
+            return 'Hello'
+        }, 3000);
+
+        var response = fetch("http://localhost:3002" + '/login', {
+            method: 'POST',
+            body: JSON.stringify(data_to_send),
+        })
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            return message;
+        }
+
+        // This has to be cleaned up, but i can't test my code right now
+        // If it is a success, we need to inform the parent function, so we can put a lil display thing.
+        console.log(response);
+        return response;
+    } catch (error) {
+        return error
     }
-
-    setTimeout(() => {
-        return 'Hello'
-    }, 3000);
-
-    var response = fetch("http://localhost:3002" + '/login', {
-        method: 'POST',
-        body: JSON.stringify(data_to_send),
-    })
-    console.log(response);
-    return response;
 }
