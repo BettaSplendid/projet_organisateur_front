@@ -123,10 +123,10 @@ export async function login_user(received_user) {
         return 'Hello'
     }, 3000);
 
-    // var response = fetch("http://localhost:3002" + '/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(data_to_send),
-    // })
-    // console.log(response);
-    // return response;
+    var response = fetch("http://localhost:3002" + '/login', {
+        method: 'POST',
+        body: JSON.stringify(data_to_send),
+    })
+    console.log(response);
+    return response;
 }
