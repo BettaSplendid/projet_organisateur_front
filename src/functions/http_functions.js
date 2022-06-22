@@ -137,14 +137,17 @@ export async function get_user_data(token, refresh_token) {
             console.log('No user data was provided.')
             return 'error'
         }
-        let response = await fetch("http://localhost:3002" + '/register', {
+        let response = await fetch("http://localhost:3002" + '/user', {
             method: 'POST',
-            body: JSON.stringify(token, refresh_token),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            body: token, refresh_token
         })
         console.log(response);
+        user_store.email = response.email;
+        user_store.country = response.country;
+        user_store.name = response.name;
+        user_store.first_name = response.first_name;
+        
+
     } catch (error) {
         console.log(error);
     }
