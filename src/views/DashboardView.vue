@@ -20,8 +20,7 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import * as http_func from '../functions/http_functions';
-
-import { useUserStore } from "../../stores/user";
+import { useUserStore } from "../stores/user";
 
 const user_store = useUserStore()
 
