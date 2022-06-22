@@ -146,6 +146,8 @@ export async function get_user_data(token, refresh_token) {
         user_store.country = response.country;
         user_store.name = response.name;
         user_store.first_name = response.first_name;
+        user_store.city = response.city;
+        user_store.country = response.country;
         
 
     } catch (error) {
