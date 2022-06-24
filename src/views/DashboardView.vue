@@ -22,6 +22,8 @@ import { onMounted } from "@vue/runtime-core";
 import * as http_func from '../functions/http_functions';
 import { useUserStore } from "../stores/user";
 
+
+const user_events = ref([]);
 const user_store = useUserStore()
 
 onMounted(() => {

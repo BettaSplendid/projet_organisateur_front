@@ -35,15 +35,15 @@ export async function send_event_server(received_event) {
 }
 
 // This function sends a request to the server to get the events.
-export async function get_events_server(token, refresh_token) {
+export async function get_events_server() {
     try {
         console.log("requesting events for user from servers");
-        if (token == null || refresh_token == null) {
-            console.log("user_data.token is null");
-            return;
-        }
-        // We only verify that we are sending a token. The validation of those credentials is in the back end. 
-        // We can't do it here.
+        // if (r_token == null || refresh_token == null) {
+        //     console.log("user_data.token is null");
+        //     return;
+        // }
+        // // We only verify that we are sending a token. The validation of those credentials is in the back end. 
+        // // We can't do it here.
 
         var data = {
             token: user_store.token,
@@ -55,7 +55,11 @@ export async function get_events_server(token, refresh_token) {
         console.log({ data });
         let response = await fetch("http://localhost:3002" + '/event/user', {
             method: 'POST',
-            body: data
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            // body: user_store.token
         })
             .then()
             .catch();
@@ -117,13 +121,25 @@ export async function register_user(received_user) {
         // console.log(response.status);
 
 
-        console.log(response.token);
-        console.log(response.refresh_token);
+        // console.log(response.token);
+        // console.log(response.refresh_token);
+        // console.log(response.result)
 
         user_store.token = response.token
         user_store.refresh_token = response.refresh_token
 
-        get_user_data(user_store.token, user_store.refresh_token);
+        // console.log(response.result.email);
+
+        user_store.id = response.result.id
+        user_store.email = response.result.email
+        user_store.country = response.result.country;
+        user_store.name = response.result.name;
+        user_store.first_name = response.result.first_name;
+        user_store.city = response.result.city;
+        user_store.country = response.result.country;
+
+
+        // get_user_data(user_store.token, user_store.refresh_token);
 
     } catch (error) {
         return error;
@@ -141,14 +157,9 @@ export async function get_user_data(token, refresh_token) {
             method: 'POST',
             body: token, refresh_token
         })
-        console.log(response);
-        user_store.email = response.email;
-        user_store.country = response.country;
-        user_store.name = response.name;
-        user_store.first_name = response.first_name;
-        user_store.city = response.city;
-        user_store.country = response.country;
-        
+        // .then(response => response.json())
+        // .catch();
+
 
     } catch (error) {
         console.log(error);

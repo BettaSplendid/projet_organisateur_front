@@ -8,7 +8,6 @@ export const useUserStore = defineStore({
         refresh_token: "",
         id: "",
         email:"",
-        password: "",
         name: "",
         first_name: "",
         city: "",
