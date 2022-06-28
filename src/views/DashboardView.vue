@@ -5,21 +5,24 @@
 
     <div>
       <div>
+        <!-- <router-link to="{/event/manage/}">Create a new event</router-link> -->
         <div v-for="foo in events_store.events" :key="foo" class="event_box">
-          <div>Id: {{ foo.id }}</div>
-          <div>Name : {{ foo.name }}</div>
-          <div>Description : {{ foo.description }}</div>
-          <div>Start date : {{ foo.start_date }}</div>
-          <div>End date : {{ foo.end_date }}</div>
-          <div>Location : {{ foo.location }}</div>
-          <div>Acceptation invitation : {{ foo.auto_accept }}</div>
-          <div>Visibility : {{ foo.visibility }}</div>
-          <div>Creation date : {{ foo.created_at }}</div>
-          <div>Updated at : {{ foo.updated_at }}</div>
+          <router-link :to="{ name: 'event_manage', params: { id: foo.id } }" class="event_box_link">
+            <div>Id: {{ foo.id }}</div>
+            <div>Name : {{ foo.name }}</div>
+            <div>Description : {{ foo.description }}</div>
+            <div>Start date : {{ foo.start_date }}</div>
+            <div>End date : {{ foo.end_date }}</div>
+            <div>Location : {{ foo.location }}</div>
+            <div>Acceptation invitation : {{ foo.auto_accept }}</div>
+            <div>Visibility : {{ foo.visibility }}</div>
+            <div>Creation date : {{ foo.created_at }}</div>
+            <div>Updated at : {{ foo.updated_at }}</div>
+          </router-link>
         </div>
       </div>
     </div>
-    If there are no events, this place needs to be have a message to say that there are no events.
+    <!-- If there are no events, this place needs to be have a message to say that there are no events. -->
     <br>
     <router-link to="/event/create">Create a new event</router-link>
   </div>
@@ -65,5 +68,12 @@ onMounted(() => {
   padding: 10px;
   margin: 10px;
   background-color: #fdd00f;
+  /* text-decoration: none; */
+  /* color: black; */
 }
+
+.event_box_link {
+  text-decoration: inherit; /* no underline */
+}
+
 </style>
