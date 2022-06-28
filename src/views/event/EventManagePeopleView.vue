@@ -4,7 +4,9 @@
     <div class="main_container">
       <!-- Guests -->
       <div>
+          <div v-for="foo in guest_list">
 
+          </div>
       </div>
       <!-- Restrictions -->
       <div v-if="restrictions_menu">
