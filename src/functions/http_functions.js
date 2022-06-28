@@ -4,7 +4,7 @@ import { useUserStore } from "../stores/user";
 const user_store = useUserStore()
 
 import { useEventsStore } from "../stores/events";
-const event_store = useEventsStore()
+const events_store = useEventsStore()
 
 // Here are the HTTP requests
 
@@ -55,18 +55,16 @@ export async function get_events_server() {
         console.log({ data });
         let response = await fetch("http://localhost:3002" + '/event/user', {
             method: 'POST',
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data),
             // body: user_store.token
         })
-            .then()
+            .then(response => response.json())
             .catch();
         console.log(response);
-        response.forEach(element => {
-            event_store.push(element);
-        });
+        events_store.events = response;
 
     } catch (error) {
         return error;
@@ -201,25 +199,46 @@ export async function login_user(received_user) {
             }
         }
 
-        setTimeout(() => {
-            return 'Hello'
-        }, 3000);
-
+        console.log({ data_to_send });
         var response = await fetch("http://localhost:3002" + '/login', {
             method: 'POST',
             body: JSON.stringify(data_to_send),
+            headers: {
+                'Content-Type': 'application/json'
+            },
         })
+            .then(response => response.json())
+            .catch();
 
-        if (!response.ok) {
+        if (!response == 200) {
+            console.log('error');
             const message = `An error has occured: ${response.status}`;
             return message;
         }
 
-        // This has to be cleaned up, but i can't test my code right now
-        // If it is a success, we need to inform the parent function, so we can put a lil display thing.
-        console.log(response);
+        console.log(response.user)
+        console.log(response.user.email)
+
+
+
+        user_store.token = response.token
+        user_store.refresh_token = response.refresh_token
+        user_store.id = response.user.id
+        user_store.email = response.user.email
+        user_store.name = response.user.name
+        user_store.first_name = response.user.first_name
+        user_store.city = response.user.city
+        user_store.country = response.user.country
+
+        events_store.events = response.events
+
+
+        // console.log(response);
+        // get_events_server()
+
         return response;
     } catch (error) {
+        console.log('Unexpected error' + error);
         return error
     }
 }
