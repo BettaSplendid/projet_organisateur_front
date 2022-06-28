@@ -3,13 +3,23 @@
     Manage the invited people here
     <div class="main_container">
       <!-- Guests -->
-      <div>
-          <div v-for="foo in guest_list">
-
-          </div>
+      <div v-for="foo in event_guests" :key="foo" class="event_box">
+        <div class="box_option">
+          <div> Name : {{ foo.name }}</div>
+          <div>First Name : {{ foo.first_name }}</div>
+          <div>Last Name : {{ foo.last_name }}</div>
+          <div>Email : {{ foo.email }}</div>
+          <div>Phone 1 : {{ foo.phone1 }}</div>
+          <div>Phone 2 : {{ foo.phone2 }}</div>
+          <div>Attendance : {{ foo.attendance_status }}</div>
+          <div>Application : {{ foo.application_status }}</div>
+          <div>Creation Date : {{ foo.created_at }}</div>
+          <div>Last Updated at : {{ foo.updated_at }}</div>
+          <div>Food restrictions : {{ foo.food_restrictions }}</div>
+        </div>
       </div>
       <!-- Restrictions -->
-      <div v-if="restrictions_menu">
+      <!-- <div> 
         Choose your diet restrictions :
         <div class="diet_container">
           <div class="column_1">
@@ -113,8 +123,10 @@
         {{ allergies }}
         <button @click="mykey.encode_diet_restrictions(allergies)">Submit choices</button>
         <button @click="mykey.decode_diet_restrictions('0000010000000000000000')">Submit choices</button>
-      </div>
-
+      </div> -->
+      <button @click="log_event()">
+        What in event guests
+      </button>
 
     </div>
   </div>
@@ -133,7 +145,21 @@ const route = useRoute()
 const events_store = useEventsStore()
 const user_store = useUserStore()
 
+var event_guests = ref()
 const page_id = route.params.id - 1
+
+onMounted(async () => {
+  console.log('mounted');
+  // event_guests = http_func.get_event_guests(route.params.id)
+  var test
+  test = await http_func.get_event_guests(route.params.id)
+  event_guests.value = test
+})
+
+function log_event() {
+  console.log(event_guests.value);
+}
+
 
 const restrictions_menu = ref(0)
 
@@ -162,7 +188,8 @@ const allergies = ref({
   red_meat: false,
 });
 
-console.log(allergies.value);
+// console.log(allergies.value);
+
 
 
 </script>
@@ -181,14 +208,12 @@ console.log(allergies.value);
   border-radius: 5vh;
   height: 100%;
   border-radius: 5px;
-  width: 100vw;
 }
-
 
 
 .diet_container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .diet_checkbox {
@@ -196,5 +221,26 @@ console.log(allergies.value);
   padding: 1vh;
   margin-bottom: 1vh;
   border-radius: 2vh;
+}
+
+.event_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  align-items: left;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #fdd00f;
+  /* text-decoration: none; */
+  /* color: black; */
+}
+
+.box_option {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vh;
 }
 </style>

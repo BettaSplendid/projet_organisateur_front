@@ -164,6 +164,43 @@ export async function get_user_data(token, refresh_token) {
     }
 }
 
+export async function get_event_guests(event_id) {
+    console.log('Get user data');
+    try {
+        if (!user_store.token || !user_store.refresh_token) {
+            console.log('No user data was provided.')
+            return 'error'
+        }
+        console.log(event_id);
+        if (!event_id) {
+            console.log('No event was provided');
+            return 'error'
+        }
+
+        var data = {
+            token: user_store.token,
+            refresh_token: user_store.refresh_token,
+            event: event_id
+        }
+        console.log(data);
+        let response = await fetch("http://localhost:3002" + '/guest/event', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+
+            .then(response => response.json())
+            .catch();
+        console.log(response);
+        return response
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function login_user(received_user) {
 
 
