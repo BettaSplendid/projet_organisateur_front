@@ -22,15 +22,10 @@
 </template>
 
 <script setup>
-import { onMounted } from "@vue/runtime-core";
-import * as http_func from '@/functions/http_functions';
-import { useUserStore } from "@/stores/user";
-import { useEventsStore } from "@/stores/events";
 import { useRoute } from "vue-router";
 
 const route = useRoute()
-const events_store = useEventsStore()
-const user_store = useUserStore()
+
 
 const page_id = route.params.id - 1
 

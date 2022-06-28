@@ -155,10 +155,7 @@ export async function get_user_data(token, refresh_token) {
             method: 'POST',
             body: token, refresh_token
         })
-        // .then(response => response.json())
-        // .catch();
-
-
+        return response
     } catch (error) {
         console.log(error);
     }

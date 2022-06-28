@@ -128,11 +128,8 @@
     </div>
     <!-- Restrictions -->
 
-    <button @click="log_event()">
-      What in event guests
-    </button>
     <button @click="present_restrictions()">
-      aaaaaa
+      Debug
     </button>
 
   </div>
@@ -144,18 +141,12 @@ import * as mykey from '../../functions/diet_functions'
 import { ref } from "vue";
 import { onMounted } from "@vue/runtime-core";
 import * as http_func from '@/functions/http_functions';
-import { useUserStore } from "@/stores/user";
-import { useEventsStore } from "@/stores/events";
 import { useRoute } from "vue-router";
 
 const route = useRoute()
-const events_store = useEventsStore()
-const user_store = useUserStore()
 
 const editing_restrictions = ref(false)
 var event_guests = ref()
-var decoded_restrictions = ref()
-const page_id = route.params.id - 1
 
 onMounted(async () => {
   console.log('mounted');
@@ -165,8 +156,6 @@ onMounted(async () => {
 function toggle_restr_edit() {
   editing_restrictions.value = !editing_restrictions.value
 }
-
-const restrictions_menu = ref(1)
 
 const allergies = ref({
   milk: false,
