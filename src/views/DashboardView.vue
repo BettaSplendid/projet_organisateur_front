@@ -47,10 +47,10 @@ onMounted(() => {
 <style scoped>
 .main_body {
   padding: 1vh;
-  background-color: #DEB95D;
+  /* background-color: #DEB95D; */
   height: 100%;
   border-radius: 5px;
-  margin-left: 0;
+  /* margin-left: 0; */
   width: 100vw;
 }
 
