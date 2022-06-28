@@ -15,121 +15,126 @@
           <div>Application : {{ foo.application_status }}</div>
           <div>Creation Date : {{ foo.created_at }}</div>
           <div>Last Updated at : {{ foo.updated_at }}</div>
-          <div>Food restrictions : {{ foo.food_restrictions }}</div>
+          <div class="food_box">Food restrictions : {{ mykey.decode_and_present_restrictions(foo.food_restrictions) }}</div>
         </div>
       </div>
-      <!-- Restrictions -->
-      <!-- <div> 
+      <div>
         Choose your diet restrictions :
-        <div class="diet_container">
-          <div class="column_1">
+        <div>
+          <div class="diet_container">
             <div class="diet_checkbox">
               <label for="milk">Milk </label>
-              <input type="checkbox" id="milk">
+              <input v-model="allergies.milk" type="checkbox" id="milk">
             </div>
             <div class="diet_checkbox">
               <label for="meat">Meat </label>
-              <input type="checkbox" id="meat">
+              <input v-model="allergies.meat" type="checkbox" id="meat">
             </div>
             <div class="diet_checkbox">
-              <label for="Alcohol">Alcohol </label>
-              <input type="checkbox" id="Alcohol">
+              <label for="gluten">Gluten </label>
+              <input v-model="allergies.gluten" type="checkbox" id="gluten">
             </div>
             <div class="diet_checkbox">
               <label for="Eggs">Eggs </label>
-              <input type="checkbox" id="Eggs">
+              <input v-model="allergies.eggs" type="checkbox" id="Eggs">
             </div>
             <div class="diet_checkbox">
               <label for="Fish">Fish </label>
-              <input type="checkbox" id="Fish">
+              <input v-model="allergies.fish" type="checkbox" id="Fish">
             </div>
             <div class="diet_checkbox">
               <label for="Nuts">Nuts </label>
-              <input type="checkbox" id="Nuts">
+              <input v-model="allergies.nuts" type="checkbox" id="Nuts">
             </div>
             <div class="diet_checkbox">
               <label for="Shellfish">Shellfish </label>
-              <input type="checkbox" id="Shellfish">
+              <input v-model="allergies.shellfish" type="checkbox" id="Shellfish">
             </div>
             <div class="diet_checkbox">
               <label for="Soy">Soy </label>
-              <input type="checkbox" id="Soy">
+              <input v-model="allergies.soy" type="checkbox" id="Soy">
             </div>
             <div class="diet_checkbox">
               <label for="Wheat">Wheat </label>
-              <input type="checkbox" id="Wheat">
+              <input v-model="allergies.wheat" type="checkbox" id="Wheat">
             </div>
             <div class="diet_checkbox">
               <label for="Peanut">Peanut </label>
-              <input type="checkbox" id="Peanut">
+              <input v-model="allergies.peanuts" type="checkbox" id="Peanut">
             </div>
             <div class="diet_checkbox">
               <label for="Poultry">Poultry </label>
-              <input type="checkbox" id="Poultry">
+              <input v-model="allergies.poultry" type="checkbox" id="Poultry">
             </div>
             <div class="diet_checkbox">
-              <label for="Red_meat">Red_meat </label>
-              <input type="checkbox" id="Red_meat">
+              <label for="Red_meat">Red meat </label>
+              <input v-model="allergies.red_meat" type="checkbox" id="Red_meat">
             </div>
           </div>
-          <div>
+          <div class="diet_container">
             <div class="diet_checkbox">
               <label for="Tree_nuts">Tree nuts </label>
-              <input type="checkbox" id="Tree_nuts">
+              <input v-model="allergies.tree_nuts" type="checkbox" id="Tree_nuts">
             </div>
             <div class="diet_checkbox">
               <label for="Peanuts">Peanuts </label>
-              <input type="checkbox" id="Peanuts">
+              <input v-model="allergies.peanuts" type="checkbox" id="Peanuts">
             </div>
             <div class="diet_checkbox">
               <label for="Sesame">Sesame </label>
-              <input type="checkbox" id="Sesame">
+              <input v-model="allergies.sesame" type="checkbox" id="Sesame">
             </div>
             <div class="diet_checkbox">
               <label for="Alcohol">Alcohol </label>
-              <input type="checkbox" id="Alcohol">
+              <input v-model="allergies.alcohol" type="checkbox" id="Alcohol">
             </div>
             <div class="diet_checkbox">
               <label for="Coconut">Coconut </label>
-              <input type="checkbox" id="Coconut">
+              <input v-model="allergies.coconut" type="checkbox" id="Coconut">
             </div>
             <div class="diet_checkbox">
               <label for="Sugar">Sugar </label>
-              <input type="checkbox" id="Sugar">
+              <input v-model="allergies.sugar" type="checkbox" id="Sugar">
             </div>
             <div class="diet_checkbox">
               <label for="Sulfites">Sulfites </label>
-              <input type="checkbox" id="Sulfites">
+              <input v-model="allergies.sulfites" type="checkbox" id="Sulfites">
             </div>
             <div class="diet_checkbox">
               <label for="fruit">Fruit </label>
-              <input type="checkbox" id="fruit">
+              <input v-model="allergies.fruit" type="checkbox" id="fruit">
             </div>
             <div class="diet_checkbox">
               <label for="Garlic">Garlic </label>
-              <input type="checkbox" id="Garlic">
+              <input v-model="allergies.garlic" type="checkbox" id="Garlic">
             </div>
             <div class="diet_checkbox">
               <label for="Celery">Celery </label>
-              <input type="checkbox" id="Celery">
+              <input v-model="allergies.celery" type="checkbox" id="Celery">
             </div>
             <div class="diet_checkbox">
               <label for="Mustard">Mustard </label>
-              <input type="checkbox" id="Mustard">
+              <input v-model="allergies.mustard" type="checkbox" id="Mustard">
             </div>
           </div>
 
         </div>
-        {{ allergies }}
-        <button @click="mykey.encode_diet_restrictions(allergies)">Submit choices</button>
-        <button @click="mykey.decode_diet_restrictions('0000010000000000000000')">Submit choices</button>
-      </div> -->
-      <button @click="log_event()">
-        What in event guests
-      </button>
 
+        <button @click="mykey.encode_diet_restrictions(allergies)">Validate</button>
+        <!-- <button @click="mykey.decode_diet_restrictions('1000000100010001000000')">decode 1000000100010001000000 - Milk soy sesame sulfites</button> -->
+      </div>
     </div>
+    <!-- Restrictions -->
+
+    <button @click="log_event()">
+      What in event guests
+    </button>
+    <button @click="present_restrictions()">
+      aaaaaa
+    </button>
+
   </div>
+
 </template>
 
 <script setup>
@@ -146,22 +151,16 @@ const events_store = useEventsStore()
 const user_store = useUserStore()
 
 var event_guests = ref()
+var decoded_restrictions = ref()
 const page_id = route.params.id - 1
 
 onMounted(async () => {
   console.log('mounted');
-  // event_guests = http_func.get_event_guests(route.params.id)
-  var test
-  test = await http_func.get_event_guests(route.params.id)
-  event_guests.value = test
+  event_guests.value = await http_func.get_event_guests(route.params.id)
 })
 
-function log_event() {
-  console.log(event_guests.value);
-}
 
-
-const restrictions_menu = ref(0)
+const restrictions_menu = ref(1)
 
 const allergies = ref({
   milk: false,
@@ -169,7 +168,7 @@ const allergies = ref({
   gluten: false,
   eggs: false,
   fish: false,
-  nuts: true,
+  nuts: false,
   shellfish: false,
   soy: false,
   wheat: false,
@@ -213,14 +212,20 @@ const allergies = ref({
 
 .diet_container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
 }
 
 .diet_checkbox {
   background-color: rgb(245, 73, 245);
-  padding: 1vh;
+  padding: 0.5vh;
   margin-bottom: 1vh;
   border-radius: 2vh;
+  text-align: center
+}
+
+.food_box {
+  display: flex;
+  flex-direction: row;
 }
 
 .event_box {
