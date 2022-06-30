@@ -129,10 +129,12 @@ export async function login_user(received_user) {
 
         // This is to allow signing up with mail or username
         var mail_or_username = null;
+        var response_message = ""
 
         if (!received_user.identifier || !received_user.password) {
             console.log("All the fields have to be filled");
-            return false;
+            response_message = "All the fields have to be filled"
+            return response_message;
         }
         if (received_user.identifier.includes("@")) {
             mail_or_username = "email";
@@ -164,8 +166,8 @@ export async function login_user(received_user) {
         })
 
         if (!response.ok) {
-            const message = `An error has occured: ${response.status}`;
-            return message;
+            response_message = `An error has occured: ${response.status}`;
+            return response_message;
         }
 
         // This has to be cleaned up, but i can't test my code right now
