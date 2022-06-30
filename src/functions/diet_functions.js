@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 // This file contains functions which are too long to handle on the main pages.
 
 const restrictions_template = [
@@ -52,21 +50,60 @@ export function encode_diet_restrictions(data) {
     }
     fake_binary = fake_binary.slice(1);
     console.log(fake_binary);
-    // Send it to the server once validated
-    // decode_diet_restrictions(fake_binary);
 }
 
-export function decode_diet_restrictions(fake_binary) {
-    console.log('Decoding');
-    console.log({ fake_binary });
-    var to_decode = fake_binary;
-    to_decode = to_decode.split('');
-    console.log({ to_decode });
-    // for (let index = 0; index < to_decode.length; index++) {
-    //     console.log(restrictions_template[index] + ' : ' + to_decode[index]);
-    // }
+export function decode_diet_restrictions(data) {
+    try {
+        // console.log('Decoding');
+        // console.log({ data });
+        var to_decode = data;
+        to_decode = to_decode.split('');
+        // console.log({ to_decode });
+        var decoded = {};
+        var answer = []
+        for (let index = 0; index < 22; index++) {
+            let temp = restrictions_template[index];
+            if (to_decode[index] == 1) {
+                decoded[temp] = true;
+                answer.push(temp)
+            }
+            else {
+                decoded[temp] = false;
+            }
+        }
+        // console.log(decoded);
+        // console.log(answer);
 
+        return answer;
+
+    } catch (error) {
+        console.log(error);
+    }
 }
+
+export function decode_and_present_restrictions(arg) {
+    var decoded = decode_diet_restrictions(arg)
+    var bababa = ""
+    decoded.forEach(element => {
+        // console.log(element);
+        // console.log(capitalizeFirstLetter(element));
+        element = (capitalizeFirstLetter(element))
+        bababa += element + ", "
+    });
+    // console.log(decoded);
+    return bababa
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+
+
+
+
+
 
 
 // var diet_restrictions = {

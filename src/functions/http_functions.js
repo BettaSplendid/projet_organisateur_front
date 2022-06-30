@@ -1,10 +1,10 @@
 
 
-import { useUserStore } from "../../stores/user";
+import { useUserStore } from "../stores/user";
 const user_store = useUserStore()
 
-import { useEventStore } from "../../stores/events";
-const event_store = useEventStore()
+import { useEventsStore } from "../stores/events";
+const events_store = useEventsStore()
 
 // Here are the HTTP requests
 
@@ -25,7 +25,7 @@ export async function send_event_server(received_event) {
     console.log({ event_to_process });
     console.log('sending the event to the server');
 
-    // let response = fetch("http://localhost:3002" + '/event/create', {
+    // let response = await fetch("http://localhost:3002" + '/event/create', {
     //     method: 'POST',
 
     // })
@@ -35,33 +35,36 @@ export async function send_event_server(received_event) {
 }
 
 // This function sends a request to the server to get the events.
-export async function get_events_server(token, refresh_token) {
+export async function get_events_server() {
     try {
         console.log("requesting events for user from servers");
-        if (token == null) {
-            console.log("user_data.token is null");
-            return;
-        }
-        // We only verify that we are sending a token. The validation of those credentials is in the back end. 
-        // We can't do it here.
+        // if (r_token == null || refresh_token == null) {
+        //     console.log("user_data.token is null");
+        //     return;
+        // }
+        // // We only verify that we are sending a token. The validation of those credentials is in the back end. 
+        // // We can't do it here.
 
         var data = {
-            token: token,
-            refresh_token: refresh_token
+            token: user_store.token,
+            refresh_token: user_store.refresh_token
         };
 
 
         console.log('sending the request to the server');
-        let response = fetch("http://localhost:3002" + '/event/get', {
+        console.log({ data });
+        let response = await fetch("http://localhost:3002" + '/event/user', {
             method: 'POST',
-            body: data
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // body: user_store.token
         })
-            .then()
+            .then(response => response.json())
             .catch();
         console.log(response);
-        response.forEach(element => {
-            event_store.push(element);
-        });
+        events_store.events = response;
 
     } catch (error) {
         return error;
@@ -102,20 +105,96 @@ export async function register_user(received_user) {
         }
         console.log("User is valid");
         console.log('sending the request to the server');
-        let response = fetch("http://localhost:3002" + '/register', {
+        let response = await fetch("http://localhost:3002" + '/register', {
             method: 'POST',
             body: JSON.stringify(received_user),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-            .then()
+            .then(response => response.json())
             .catch();
-        // This has to be cleaned up, but i can't test my code right now
         // If it is a success, we need to inform the parent function, so we can put a lil display thing.
         console.log(response);
+        // console.log(response.status);
+
+
+        // console.log(response.token);
+        // console.log(response.refresh_token);
+        // console.log(response.result)
+
+        user_store.token = response.token
+        user_store.refresh_token = response.refresh_token
+
+        // console.log(response.result.email);
+
+        user_store.id = response.result.id
+        user_store.email = response.result.email
+        user_store.country = response.result.country;
+        user_store.name = response.result.name;
+        user_store.first_name = response.result.first_name;
+        user_store.city = response.result.city;
+        user_store.country = response.result.country;
+
+
+        // get_user_data(user_store.token, user_store.refresh_token);
+
     } catch (error) {
         return error;
+    }
+}
+
+export async function get_user_data(token, refresh_token) {
+    console.log("get_user_data");
+    try {
+        if (!token || !refresh_token) {
+            console.log('No user data was provided.')
+            return 'error'
+        }
+        let response = await fetch("http://localhost:3002" + '/user', {
+            method: 'POST',
+            body: token, refresh_token
+        })
+        return response
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function get_event_guests(event_id) {
+    console.log('Get user data');
+    try {
+        if (!user_store.token || !user_store.refresh_token) {
+            console.log('No user data was provided.')
+            return 'error'
+        }
+        console.log(event_id);
+        if (!event_id) {
+            console.log('No event was provided');
+            return 'error'
+        }
+
+        var data = {
+            token: user_store.token,
+            refresh_token: user_store.refresh_token,
+            event: event_id
+        }
+        console.log(data);
+        let response = await fetch("http://localhost:3002" + '/guest/event', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+
+            .then(response => response.json())
+            .catch();
+        console.log(response);
+        return response
+
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -156,25 +235,45 @@ export async function login_user(received_user) {
             }
         }
 
-        setTimeout(() => {
-            return 'Hello'
-        }, 3000);
-
-        var response = fetch("http://localhost:3002" + '/login', {
+        console.log({ data_to_send });
+        var response = await fetch("http://localhost:3002" + '/login', {
             method: 'POST',
             body: JSON.stringify(data_to_send),
+            headers: {
+                'Content-Type': 'application/json'
+            },
         })
+            .then(response => response.json())
+            .catch();
 
-        if (!response.ok) {
+        if (!response == 200) {
             response_message = `An error has occured: ${response.status}`;
             return response_message;
         }
 
-        // This has to be cleaned up, but i can't test my code right now
-        // If it is a success, we need to inform the parent function, so we can put a lil display thing.
-        console.log(response);
+        console.log(response.user)
+        console.log(response.user.email)
+
+
+
+        user_store.token = response.token
+        user_store.refresh_token = response.refresh_token
+        user_store.id = response.user.id
+        user_store.email = response.user.email
+        user_store.name = response.user.name
+        user_store.first_name = response.user.first_name
+        user_store.city = response.user.city
+        user_store.country = response.user.country
+
+        events_store.events = response.events
+
+
+        // console.log(response);
+        // get_events_server()
+
         return response;
     } catch (error) {
+        console.log('Unexpected error' + error);
         return error
     }
 }

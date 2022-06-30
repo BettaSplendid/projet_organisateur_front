@@ -62,7 +62,7 @@ async function start_login() {
     router.push("/dashboard");
   } else {
     // Else we display an error message
-    alert(response.response_message);
+    // alert(response.response_message);
   }
   // router.push("dashboard")
 }
