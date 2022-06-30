@@ -95,7 +95,6 @@ function check_values() {
   console.log('Checking values');
   if (CreateEventStore.event_name != "") {
     console.log('Store has something. Setting variables to store values');
-    // console.log(CreateEventStore.event.name);
     event_name.value = CreateEventStore.event.name;
     event_start_date.value = CreateEventStore.event.start_date;
     event_end_date.value = CreateEventStore.event.end_date;

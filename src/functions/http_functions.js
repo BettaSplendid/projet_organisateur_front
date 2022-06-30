@@ -215,6 +215,12 @@ export async function login_user(received_user) {
             response_message = "All the fields have to be filled"
             return response_message;
         }
+
+        if(typeof received_user.identifier !== 'string' || typeof received_user.password !== 'string'){
+            response_message = "Incorrect data type. Please send only text."
+            return response_message;
+        }
+
         if (received_user.identifier.includes("@")) {
             mail_or_username = "email";
         } else {
