@@ -23,8 +23,10 @@
 
 <script setup>
 import { useRoute } from "vue-router";
+import { useEventsStore } from "@/stores/events";
 
 const route = useRoute()
+const events_store = useEventsStore()
 
 
 const page_id = route.params.id - 1
