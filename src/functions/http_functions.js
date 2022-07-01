@@ -15,23 +15,27 @@ const events_store = useEventsStore()
 export async function send_event_server(received_event) {
     console.log("send_event_server");
     console.log({ received_event });
-    // console.log(typeof received_event);
     var event_to_process = received_event;
     for (let index = 0; index < Object.keys(event_to_process).length; index++) {
-        // console.log(Object.keys(event_to_process)[index] + ' : ' + event_to_process[Object.keys(event_to_process)[index]]);
-        event_to_process[Object.keys(event_to_process)[index]] = event_to_process[Object.keys(event_to_process)[index]].trim();
         event_to_process[Object.keys(event_to_process)[index]] = event_to_process[Object.keys(event_to_process)[index]].toString();
+        event_to_process[Object.keys(event_to_process)[index]] = event_to_process[Object.keys(event_to_process)[index]].trim();
     }
-    console.log({ event_to_process });
-    console.log('sending the event to the server');
 
-    // let response = await fetch("http://localhost:3002" + '/event/create', {
-    //     method: 'POST',
+    let response = await fetch("http://localhost:3002" + '/event/create', {
+        method: 'POST',
+        body: JSON.stringify(event_to_process),
+        headers: {
+            'Content-Type': 'application/json'
+        },
 
-    // })
-    //     .then()
-    //     .catch();
-    // console.log(response);
+    })
+        .then(response => response.json())
+        .catch();
+    if(response.status !== 201){
+        console.log("Error: " + response.status);
+        return false;
+    }
+    get_events_server()
 }
 
 // This function sends a request to the server to get the events.
@@ -208,11 +212,19 @@ export async function login_user(received_user) {
 
         // This is to allow signing up with mail or username
         var mail_or_username = null;
+        var response_message = ""
 
         if (!received_user.identifier || !received_user.password) {
             console.log("All the fields have to be filled");
-            return false;
+            response_message = "All the fields have to be filled"
+            return response_message;
         }
+
+        if (typeof received_user.identifier !== 'string' || typeof received_user.password !== 'string') {
+            response_message = "Incorrect data type. Please send only text."
+            return response_message;
+        }
+
         if (received_user.identifier.includes("@")) {
             mail_or_username = "email";
         } else {
@@ -245,9 +257,8 @@ export async function login_user(received_user) {
             .catch();
 
         if (!response == 200) {
-            console.log('error');
-            const message = `An error has occured: ${response.status}`;
-            return message;
+            response_message = `An error has occured: ${response.status}`;
+            return response_message;
         }
 
         console.log(response.user)
