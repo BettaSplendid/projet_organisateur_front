@@ -52,6 +52,9 @@ const user_data = ref({
   identifier: ""
 });
 
+const connect_error = ref("")
+
+
 function change_connect_type() {
   connect_type.value = !connect_type.value;
 }
