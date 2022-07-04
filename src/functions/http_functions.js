@@ -6,6 +6,11 @@ const user_store = useUserStore()
 import { useEventsStore } from "../stores/events";
 const events_store = useEventsStore()
 
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 // Here are the HTTP requests
 
 
@@ -31,7 +36,7 @@ export async function send_event_server(received_event) {
     })
         .then(response => response.json())
         .catch();
-    if(response.status !== 201){
+    if (response.status !== 201) {
         console.log("Error: " + response.status);
         return false;
     }
@@ -63,7 +68,6 @@ export async function get_events_server() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // body: user_store.token
         })
             .then(response => response.json())
             .catch();
@@ -194,6 +198,7 @@ export async function get_event_guests(event_id) {
 
             .then(response => response.json())
             .catch();
+        // router.push("/dashboard");
         console.log(response);
         return response
 
@@ -253,37 +258,68 @@ export async function login_user(received_user) {
                 'Content-Type': 'application/json'
             },
         })
-            .then(response => response.json())
+            .then()
             .catch();
 
-        if (!response == 200) {
+        console.log(response);
+
+        if (response.status != 200) {
             response_message = `An error has occured: ${response.status}`;
+            console.log(response_message);
             return response_message;
         }
 
-        console.log(response.user)
-        console.log(response.user.email)
+        var received_data = await response.json()
+
+        console.log(received_data)
+        console.log(received_data.user.email)
 
 
 
-        user_store.token = response.token
-        user_store.refresh_token = response.refresh_token
-        user_store.id = response.user.id
-        user_store.email = response.user.email
-        user_store.name = response.user.name
-        user_store.first_name = response.user.first_name
-        user_store.city = response.user.city
-        user_store.country = response.user.country
+        user_store.token = received_data.token
+        user_store.refresh_token = received_data.refresh_token
+        user_store.id = received_data.user.id
+        user_store.email = received_data.user.email
+        user_store.name = received_data.user.name
+        user_store.first_name = received_data.user.first_name
+        user_store.city = received_data.user.city
+        user_store.country = received_data.user.country
 
-        events_store.events = response.events
+        events_store.events = received_data.events
 
+        get_events_server()
 
-        // console.log(response);
-        // get_events_server()
+        // console.log(received_data);
 
-        return response;
+        return received_data;
     } catch (error) {
         console.log('Unexpected error' + error);
         return error
+    }
+}
+
+//create a guest to an existing event
+export async function create_guest(event_id, guest_data) {
+    console.log('Create guest');
+    try {
+        const data = {
+            event: event_id,
+            guest: guest_data,
+            user_id: user_store.id
+        }
+        console.log({data});
+        // console.log(data.guest.event_id);
+
+        var response = await fetch("http://localhost:3002" + '/guest', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then()
+            .catch();
+    } catch (error) {
+        console.log(error);
     }
 }

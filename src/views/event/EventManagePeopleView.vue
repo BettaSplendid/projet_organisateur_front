@@ -3,6 +3,20 @@
     Manage the invited people here
     <div class="main_container">
       <!-- Guests -->
+      <div class="main_container">
+        <p @click="add_some_guests()">
+          Invite more people
+        </p>
+        <div v-if="add_people" class="flex_collumn">
+          <input v-model="invitee.name" type="text" name="name" placeholder="Name">
+          <input v-model="invitee.first_name" type="text" name="first_name" placeholder="first_name">
+          <input v-model="invitee.email" type="text" name="email" placeholder="Email">
+          <input v-model="invitee.phone1" type="phone" name="phone1" placeholder="Phone 1">
+          <input v-model="invitee.phone2" type="phone" name="phone2" placeholder="Phone 2">
+          <button @click="send_new_guest()">Confirm</button>
+        </div>
+      </div>
+
       <div v-for="foo in event_guests" :key="foo" class="event_box">
         <div class="box_option">
           <div> Name : {{ foo.name }}</div>
@@ -144,8 +158,21 @@ import * as http_func from '@/functions/http_functions';
 import { useRoute } from "vue-router";
 
 const route = useRoute()
-
+// const page_id = route.params.id - 1
 const editing_restrictions = ref(false)
+
+
+var invitee = ref({
+  event_id: route.params.id,
+  name: null,
+  first_name: null,
+  phone1: null,
+  phone2: null,
+  email: null,
+  disabled: false
+})
+
+var add_people = ref(false)
 var event_guests = ref()
 
 onMounted(async () => {
@@ -153,8 +180,16 @@ onMounted(async () => {
   event_guests.value = await http_func.get_event_guests(route.params.id)
 })
 
+function add_some_guests() {
+  add_people.value = !add_people.value;
+}
+
 function toggle_restr_edit() {
   editing_restrictions.value = !editing_restrictions.value
+}
+
+function send_new_guest() {
+  http_func.create_guest(route.params.id, invitee.value)
 }
 
 const allergies = ref({
@@ -185,6 +220,11 @@ const allergies = ref({
 </script>
 
 <style>
+.flex_collumn {
+  display: flex;
+  flex-direction: column;
+}
+
 .page_container {
   padding: 1vh;
 }

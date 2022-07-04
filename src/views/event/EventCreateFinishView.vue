@@ -26,7 +26,7 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import { ref } from "vue";
-import { useCreateEventStore } from "../../stores/create_event";
+import { useCreateEventStore } from "@/../stores/create_event";
 const CreateEventStore = useCreateEventStore();
 
 const temp_event = ref({});

@@ -19,7 +19,8 @@
           <input v-model="user_data.email" type="text" name="email" placeholder="Email" />
           <input v-model="user_data.password" type="password" name="password" placeholder="Password" />
           <input v-model="user_data.country" type="text" name="country" placeholder="France">
-          Those aren't as important
+          <p> - </p>
+          Optional information : 
           <input v-model="user_data.username" type="text" name="username" placeholder="Username">
           <input v-model="user_data.first_name" type="text" name="firstname" placeholder="Firstname">
           <input v-model="user_data.last_name" type="text" name="lastname" placeholder="Lastname">
@@ -55,16 +56,8 @@ function change_connect_type() {
   connect_type.value = !connect_type.value;
 }
 
-async function start_login() {
-  var response = await http_func.login_user(user_data.value);
-  // If the return is code 200, we redirect to the home page
-  if (response.response_code === 200) {
-    router.push("/dashboard");
-  } else {
-    // Else we display an error message
-    // alert(response.response_message);
-  }
-  // router.push("dashboard")
+function start_login() {
+  http_func.login_user(user_data.value);
 }
 
 async function start_register() {

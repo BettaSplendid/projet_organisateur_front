@@ -69,7 +69,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useCreateEventStore } from "../../stores/create_event";
+import { useCreateEventStore } from "@/../stores/create_event";
 import * as http_func from '../../functions/http_functions';
 const CreateEventStore = useCreateEventStore();
 

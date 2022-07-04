@@ -3,19 +3,20 @@
     <div class="event_box">
       <h3>Manage your event here : </h3>
       <div class="box_option">
-        <div>Id: {{ events_store.events[page_id].id }}</div>
-        <div>Name : {{ events_store.events[page_id].name }}</div>
-        <div>Description : {{ events_store.events[page_id].description }}</div>
-        <div>Start date : {{ events_store.events[page_id].start_date }}</div>
-        <div>End date : {{ events_store.events[page_id].end_date }}</div>
-        <div>Location : {{ events_store.events[page_id].location }}</div>
-        <div>Acceptation invitation : {{ events_store.events[page_id].auto_accept }}</div>
-        <div>Visibility : {{ events_store.events[page_id].visibility }}</div>
-        <div>Creation date : {{ events_store.events[page_id].created_at }}</div>
-        <div>Updated at : {{ events_store.events[page_id].updated_at }}</div>
+        {{ events_store.events[0] }}
+        <div>Id: {{ current_event.id }}</div>
+        <div>Name : {{ current_event.name }}</div>
+        <div>Description : {{ current_event.description }}</div>
+        <div>Start date : {{ current_event.start_date }}</div>
+        <div>End date : {{ current_event.end_date }}</div>
+        <div>Location : {{ current_event.location }}</div>
+        <div>Acceptation invitation : {{ current_event.auto_accept }}</div>
+        <div>Visibility : {{ current_event.visibility }}</div>
+        <div>Creation date : {{ current_event.created_at }}</div>
+        <div>Updated at : {{ current_event.updated_at }}</div>
       </div>
       <div class="box_option">
-        Manage guests : <router-link :to="{ name: 'event_manage_people', params: { id: events_store.events[page_id].id } }">Guests</router-link>
+        Manage guests : <router-link :to="{ name: 'event_manage_people', params: { id: current_event.id } }">Guests</router-link>
       </div>
     </div>
   </div>
@@ -23,11 +24,18 @@
 
 <script setup>
 import { useRoute } from "vue-router";
+import { useEventsStore } from "@/stores/events";
+const events_store = useEventsStore()
 
 const route = useRoute()
 
 
 const page_id = route.params.id - 1
+const current_event = search_result()
+
+function search_result () {
+  return events_store.events.find(event => event.id == route.params.id)
+}
 
 </script>
 

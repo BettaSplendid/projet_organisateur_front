@@ -32,17 +32,17 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import * as http_func from '../functions/http_functions';
-import { useUserStore } from "../stores/user";
+// import { useUserStore } from "@/stores/user";
 
-import { useEventsStore } from "../stores/events";
+import { useEventsStore } from "@/stores/events";
 const events_store = useEventsStore()
 
 
-const user_store = useUserStore()
+// const user_store = useUserStore()
 
 onMounted(() => {
   console.log("DashboardView mounted");
-  http_func.get_events_server(user_store.token, user_store.refresh_token)
+  http_func.get_events_server()
 })
 
 </script>
